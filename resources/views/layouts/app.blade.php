@@ -7,14 +7,15 @@
 
     {{-- CDN Tailwindcss --}}
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    {{-- Alpine JS --}}
+    <script src="//unpkg.com/alpinejs" defer></script>
 
     <title>Front MLtrainings</title>
     @livewireStyles
 </head>
 <body>
     {{-- Full page --}}
-    <div class="h-screen antialiased text-gray-900 bg-gray-100 flex">
+    <div class="h-screen antialiased text-gray-900 bg-stone-100 flex">
 
       {{-- Menu lateral --}}
       <aside class="flex-shrink-0 px-3 py-4 w-[70px] md:w-[256px] bg-orange-500 flex flex-col transition-all duration-[0.55] shadow-md">
@@ -39,7 +40,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 flex-shrink-0">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                     </svg>
-                    <span class="flex-shrink-0 ">Home</span>
+                    <span class="flex-shrink-0">Home</span>
                   </a>
               </li>
               <li class="overflow-x-hidden">
@@ -55,55 +56,74 @@
       </aside>
 
       {{-- Área do Header e Main --}}
-      <div class="flex-grow flex flex-col h-full overflow-x-hidden overflow-y-auto">
+      <div class="flex-grow flex flex-col h-full overflow-y-auto">
           {{-- Header no topo --}}
-          <header class="bg-white shadow">
-            <div class="mx-2 flex justify-between items-center">
+          <header class="bg-white shadow h-[72px]">
+            <div class="py-2 px-6 flex justify-between items-center">
+              {{-- Botão para expandir menu --}}
                 <div class="bg-orange-400 p-2 rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
                     </svg>
                 </div>
-                <div class="py-6">
+                {{-- Barra de pesquisa --}}
+                {{-- <div class="py-2">
                     <input type="text" class="p-2 border border-orange-300 rounded-lg sm:text-md focus:ring-orange-500 focus:border-orange-400">
-                </div>
-                <div class="">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="w-10 h-10 rounded-full object-cover">
+                </div> --}}
+                {{-- Profile menu --}}
+                <div x-data="{open:false}" class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                      x-on:click="open=!open"
+                      class="w-10 h-10 rounded-full object-cover cursor-pointer hover:scale-105"
+                    />
+                    <ul
+                      x-show="open"
+                      class="absolute right-0 w-48 p-2 bg-white rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none"
+                    >
+                      <li>
+                        <a
+                          href="#"
+                          class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
+                        >
+                          Profile
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
+                        >
+                          Logout
+                        </a>
+                      </li>
+                    </ul>
                 </div>
             </div>
           </header>
-          <main class="flex-grow px-6 py-8">
+          <main class="flex-grow px-6 py-8 grid gap-4">
             {{ $slot }}
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sint accusamus nemo in consectetur laborum perspiciatis officia similique, quae minima hic aspernatur illum eius soluta labore. Cupiditate dicta doloremque quasi!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo ratione suscipit recusandae possimus deleniti minima exercitationem eveniet voluptates, optio quidem dolorem neque hic aut dignissimos quisquam cupiditate culpa eius! Est.</p>
+            {{-- Overview Meus treinamentos e Meus cursos --}}
+            <section class="grid grid-cols-2 gap-4 h-96">
+                <div class="bg-white rounded-md p-4">
+                  <div>
+                    <span>Meus Treinamentos</span>
+
+                  </div>
+                </div>
+                <div class="bg-white rounded-md p-4">
+                  <div>
+                    <span>Meus Cursos</span>
+                  </div>
+                </div>
+            </section>
+
+            {{-- Próximos eventos --}}
+            <section class="grid grid-cols-1 h-96">
+              <div class="bg-white rounded-md p-4">
+                <span>Próximos eventos</span>
+              </div>
+            </section>
           </main>
       </div>
 
